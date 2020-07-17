@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import './index.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Round(n, ops, num, arr, index) {
-    for (let i = -1; i <= n; i++) {
-        if (i === -1) num = arr[index + (2 * i)]
-        else if (ops === "*") num *= arr[index + (2 * i)]
-        else if (ops === "/") num /= arr[index + (2 * i)]
+// import {f09a} from '@fortawesome/fontawesome-svg-core'
 
-    }
-    return num
-}
+
+
+// function Round(n, ops, num, arr, index) {
+//     for (let i = -1; i <= n; i++) {
+//         if (i === -1) num = arr[index + (2 * i)]
+//         else if (ops === "*") num *= arr[index + (2 * i)]
+//         else if (ops === "/") num /= arr[index + (2 * i)]
+
+//     }
+//     return num
+// }
+
+
 
 export default class Calculator extends Component {
     state = {
@@ -56,77 +63,46 @@ export default class Calculator extends Component {
             else if (arr[i + 1] === "-") {
                 result -= +arr[i + 2]
             }
-            // else if (arr[i + 1] === "x") {
-            //     if (arr[i - 1] === "+" || arr[i - 1] === undefined) result += +arr[i] * (+arr[i + 2]) - arr[i]
-            //     else if (arr[i - 1] === "-") result -= +arr[i] * (+arr[i + 2]) - arr[i]
-            //     let m = i
-
-            //     let num = 1, round = 0, value = 0
-            //     while (arr[m - 1] === "x" || arr[m - 1] === "/") {
-            //         round++
-            //         if (arr[m - 1] === "x") {
-            //             value = Round(round - 1, "x", num, arr, m)
-            //             num = Round(round, "x", num, arr, m)
-            //         } else if (arr[m - 1] === "/") {
-            //             value = Round(round - 1, "/", num, arr, m)
-            //             num = Round(round, '/', num, arr, m)
-            //         }
-            //         m -= 2
-            //     }
-            //     if (arr[m - 1] === "-" && value !== 0) {
-            //         result -= num - value
-            //     } else if ((arr[m - 1] === "+" || arr[m - 1] === undefined) && value !== 0) {
-            //         result += num - value
-            //     }
-
-            // }
-            else if (arr[i + 1] === "x") {
+            else if (arr[i + 1] === "x" || arr[i+1] ==="/") {
                 let round = 1;
                 let num = 1;
+                let ops = ""
+              
+                if (arr[i - 1] === "-") ops = "-"
+                else ops = "+"
+              
+                if (arr[i - 1] === "-") result += +arr[i]
+                else if (arr[i - 1] === "+") result -= +arr[i]
+               
                 while (arr[i + 1] === "x" || arr[i + 1] === "/") {
-                    if (arr[i + 1] === "x") {
-                        if (round === 1) {
-                            num = +arr[i]
-                            if (arr[i - 1] === "-") result += +arr[i]
-                            else if (arr[i - 1] === "+") result -= +arr[i]
-                        } else num *= +arr[i]
-                        round++
-                        i += 2
-                    } else {
-                        num /= +arr[i]
-                    }
-
+                    if(i===0) result = 0
+                    if (round === 1) {
+                        if(arr[i+1] === "x")num = arr[i] * arr[i + 2]
+                        else num = arr[i]/arr[i+2]
+                    } else if (arr[i + 1] === "x") { num *= arr[i + 2]; }
+                    else if (arr[i + 1] === "/") { num /= arr[i + 2]; }
+                    round++
+                    i += 2
                 }
-                if (arr[i - (round * 2) + 1] === "+" || arr[i - (round * 2) + 1] === undefined) result += num * arr[i]
-                else if (arr[i - (round * 2) + 1] === "-") result -= num * +arr[i]
-            } else if (arr[i + 1] === "/") {
-                let round = 1;
-                let num = 1;
-                while (arr[i + 1] === "/" || arr[i + 1] === "x") {
-                    if (arr[i + 1]) {
-                        if (round === 1) {
-                            num = +arr[i];
-                            if (arr[i - 1] === "-") result += +arr[i]
-                            else if (arr[i - 1] === "+") result -= +arr[i]
-                        } else num /= +arr[i]
-                        round++
-                        i += 2
-                    } else {
-                        num *= +arr[i]
-                    }
-
-                }
-                if (arr[i - (round * 2) + 1] === "+" || arr[i - (round * 2) + 1] === undefined) result += num / arr[i]
-                else if (arr[i - (round * 2) + 1] === "-") result -= num / arr[i]
+        
+                if (ops === "-") result -= num
+                else result += num
+                i -= 2
+               
+        
             }
             console.log(result)
-            this.setState({ result, data: [`${result}`] })
-
+            this.setState({result})
         }
+
     }
     render() {
         return (
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexDirection: "column" }}>
+                <FontAwesomeIcon icon={['fab', 'apple']} />
+               
+
+                <i style={{ color: "#4267b2", backgroundColor: "white", fontSize: "200px" }} class="fab fa-facebook-square"></i>
                 <table>
                     <tbody>
                         <tr>
