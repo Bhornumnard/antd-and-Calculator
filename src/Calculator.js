@@ -99,10 +99,10 @@ export default class Calculator extends Component {
     render() {
         return (
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", flexDirection: "column" }}>
-                <FontAwesomeIcon icon={['fab', 'apple']} />
+                <FontAwesomeIcon icon={['fab', 'apple']} style={{fontSize: "100px", paddingBottom:"20px"}}/>
                
 
-                <i style={{ color: "#4267b2", backgroundColor: "white", fontSize: "200px" }} class="fab fa-facebook-square"></i>
+                {/* <i style={{ color: "#4267b2", backgroundColor: "white", fontSize: "200px" }} class="fab fa-facebook-square"></i> */}
                 <table>
                     <tbody>
                         <tr>
@@ -128,9 +128,10 @@ export default class Calculator extends Component {
                             <td><button onClick={() => this.addOps('x')}> x </button></td>
                         </tr>
                         <tr>
-                            <td colSpan="2"><button onClick={() => this.addNumber('0')}> 0 </button></td>
+                            <td><button onClick={() => this.addNumber('0')}> 0 </button></td>
+                            <td><button onClick={() => this.addNumber('.')}> . </button></td>
                             <td><button onClick={this.handleResult}> = </button></td>
-                            <td><button onClick={() => this.addOps('/')}> % </button></td>
+                            <td><button onClick={() => this.addOps('/')}> / </button></td>
                         </tr>
                     </tbody>
 

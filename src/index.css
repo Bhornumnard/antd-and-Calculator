@@ -30,3 +30,9 @@ button{
 input{
   text-align: right;
 }
+
+button:focus {
+  background-color: rgba(24, 83, 63, 0.123);
+  border-style: inset;
+  outline: none;
+}
